@@ -1,8 +1,8 @@
 # DatabaseSystemsGroupProject
 
-## This repo contains project work for the Database Systems course.
+# This repo contains project work for the Database Systems course.
 
-##  Create a Grade Book Database
+#  Create a Grade Book Database
 
 **1. Problem Statement**
    
