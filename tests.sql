@@ -40,71 +40,47 @@ CREATE TABLE Grade(
   FOREIGN KEY (student_id) REFERENCES Students(student_id)
 );
 
-
--- create three test courses
-INSERT INTO Courses VALUES(1, 'math', 202, "Calculus II", "Fall", 2022);
-INSERT INTO Courses VALUES(2, 'computer science', 351, "Robotics", "Fall", 2022);
+INSERT INTO Courses (course_id, department, course_number, course_name, semester, year)
+VALUES (1, 'Computer Science', 101, 'Intro to Computer Science', 'Fall', 2022);
 
 
--- create 7 arbitary students
-INSERT INTO Students VALUES(4, 'Barsha', 'Chadhaury',00);
-INSERT INTO Students VALUES(6, 'Chunmei', 'Liu',00);
-INSERT INTO Students VALUES(7, 'Harry', 'Keeling',00);
-INSERT INTO Students VALUES(8, 'Bugs', 'Bunny',00);
-INSERT INTO Students VALUES(9, 'Noha', 'Hazzazi',00);
-INSERT INTO Students VALUES(10, 'Linwei', 'Niu',00);
-INSERT INTO Students VALUES(11, 'John', 'Qui',00);
+-- Insert values into Student table
+INSERT INTO Students (student_id, first_name, last_name, course_id)
+VALUES (1, 'John', 'Doe', 1),
+       (2, 'Jane', 'Smith', 1),
+       (3, 'David', 'Johnson', 1);
 
+-- Insert values into Assignment table
+INSERT INTO Assignments (assignment_id, category, percentage, course_id)
+VALUES (1, 'Participation', 10.0, 1),
+       (2, 'Homework', 20.0, 1),
+       (3, 'Tests', 50.0, 1),
+       (4, 'Projects', 20.0, 1);
+       
 
--- create assignments for course_id 1: Calculus
-INSERT INTO Assignments VALUES(6, 'Participation', 10.0, 1);
-INSERT INTO Assignments VALUES(7, 'Homework', 20.0, 1);
-INSERT INTO Assignments VALUES(8, 'Tests', 50.0, 1);
-INSERT INTO Assignments VALUES(9, 'Projects', 20.0, 1);
-INSERT INTO Assignments VALUES(10, 'Final Exam', 30.0, 1);
-
--- create assignments for course_id 2: Robotics
-INSERT INTO Assignments VALUES(11, 'Participation', 10.0, 2);
-INSERT INTO Assignments VALUES(12, 'Homework', 20.0, 2);
-INSERT INTO Assignments VALUES(13, 'Tests', 50.0, 2);
-INSERT INTO Assignments VALUES(14, 'Projects', 20.0, 2);
-INSERT INTO Assignments VALUES(15, 'Final Exam', 30.0, 2);
-
-
--- create grades for assignments for student 4 in course 1
--- grade_id, assignment_id, student_id, score
-INSERT INTO Grade VALUES(1,6,4,100.0);
-INSERT INTO Grade VALUES(2,7,4,100.0);
-INSERT INTO Grade VALUES(3,8,4,100.0);
-INSERT INTO Grade VALUES(4,9,4,100.0);
-INSERT INTO Grade VALUES(5,10,4,100.0);
-
-
--- create grades for assignments for student 6 in course 1
--- grade_id, assignment_id, student_id, score
-INSERT INTO Grade VALUES(6,6,6,95.3);
-INSERT INTO Grade VALUES(7,7,6,76.5);
-INSERT INTO Grade VALUES(8,8,6,89.2);
-INSERT INTO Grade VALUES(9,9,6,67.5);
-INSERT INTO Grade VALUES(10,10,6,100.0);
+-- Insert values into Grade table
+INSERT INTO Grade (grade_id, assignment_id, student_id, score)
+VALUES
+(1, 1, 1, 8.5),
+(2, 2, 1, 92.0),
+(3, 3, 1, 75.0),
+(4, 4, 1, 88.0),
+(5, 1, 2, 9.0),
+(6, 2, 2, 88.5),
+(7, 3, 2, 82.0),
+(8, 4, 2, 95.0),
+(9, 1, 3, 7.0),
+(10, 2, 3, 78.0),
+(11, 3, 3, 90.0),
+(12, 4, 3, 91.5);
 
 
 
--- create grades for assignments for student 4 in course 2
-INSERT INTO Grade VALUES(11,11,4,89.9);
-INSERT INTO Grade VALUES(12,12,4,94.7);
-INSERT INTO Grade VALUES(13,13,4,87.5);
-INSERT INTO Grade VALUES(14,14,4,99.3);
-INSERT INTO Grade VALUES(15,15,4,100.0);
-
-
--- create grades for assignments for student 6 in course 2 
-INSERT INTO Grade VALUES(16,11,6,100.0);
-INSERT INTO Grade VALUES(17,12,6,94.2);
-INSERT INTO Grade VALUES(18,13,6,78.9);
-INSERT INTO Grade VALUES(19,14,6,99.5);
-INSERT INTO Grade VALUES(20,15,6,92.1);
-
-
-
+-- Test Case for last name containing Q task 
+INSERT INTO Students VALUES (4, 'John', 'Qoe', 1);
+INSERT INTO Grade (grade_id, assignment_id, student_id, score)
+VALUES(13,1,4,78.8),
+(14,2,4.93.2),
+(15,3,4,98,4),
+(16,4,4,86.6)
 
