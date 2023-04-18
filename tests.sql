@@ -84,3 +84,35 @@ VALUES(13,1,4,78.8),
 (15,3,4,98,4),
 (16,4,4,86.6)
 
+-- Testing for Task 10
+
+-- Test case: Verify that the scores of students with last name containing 'Q' are updated by 2 points
+
+-- Insert a student with last name containing 'Q'
+INSERT INTO Student (id, first_name, last_name, course_id)
+VALUES (4, 'John', 'Qoe', 1);
+
+SELECT * FROM Student;
+
+-- Testing Add 2 points to the score of students whose last name contains a 'Q'
+UPDATE Grade g
+JOIN Student s ON s.id = g.student_id
+SET score = score + 2
+WHERE s.last_name LIKE '%Q%';
+
+
+-- Test Case for last name containing Q task 
+INSERT INTO Student VALUES (4, 'John', 'Qoe', 1);
+INSERT INTO Grade (id, assignment_id, student_id, score)
+VALUES
+(13,1,4,78.8),
+(14,2,4,93.2),
+(15,3,4,98.4),
+(16,4,4,86.6);
+
+-- List all of the students in a course and all of their scores on every assignment;
+SELECT s.first_name, s.last_name, a.category, g.score
+FROM Student s
+JOIN Grade g ON s.id = g.student_id
+JOIN Assignment a ON g.assignment_id = a.id
+WHERE s.course_id = 1;
