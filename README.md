@@ -2,6 +2,11 @@
 
 # This repo contains project work for the Database Systems course.
 
+**Instructions** 
+-Copy SQL code into any SQL editor or save .sql file to your computer and upload it to editor of choice 
+-Run entire code to see all tasks executed 
+
+
 #  Create a Grade Book Database
 
 **1. Problem Statement**
