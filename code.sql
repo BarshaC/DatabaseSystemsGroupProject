@@ -1,3 +1,5 @@
+
+
 CREATE DATABASE GradeBook;
 USE GradeBook;
 
@@ -10,7 +12,6 @@ CREATE TABLE Course (
   semester VARCHAR(255) NOT NULL,
   year_ INT NOT NULL
 );
-
 
 CREATE TABLE Student (
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -29,7 +30,6 @@ CREATE TABLE Assignment (
   FOREIGN KEY (course_id) REFERENCES Course(id)
 );
 
--- Create Grade table
 CREATE TABLE Grade (
   id INT PRIMARY KEY AUTO_INCREMENT,
   assignment_id INT NOT NULL,
@@ -38,7 +38,6 @@ CREATE TABLE Grade (
   FOREIGN KEY (assignment_id) REFERENCES Assignment(id),
   FOREIGN KEY (student_id) REFERENCES Student(id)
 );
-
 
 -- Insert values into Course table
 INSERT INTO Course (id, department, course_number, course_name, semester, year_)
@@ -59,7 +58,7 @@ VALUES (1, 'Participation', 10.0, 1),
        (4, 'Projects', 20.0, 1);
        
 
--- Insert values into Grades table
+-- Insert values into Grade table
 INSERT INTO Grade (id, assignment_id, student_id, score)
 VALUES
 (1, 1, 1, 8.5),
@@ -158,5 +157,7 @@ SELECT s.first_name, s.last_name,
   (SUM(g.score) - MIN(g.score)) / (COUNT(g.score) - 1) AS grade
 FROM Student s
 JOIN Grade g ON s.id = g.student_id
-WHERE s.id = 1
+WHERE s.id = 2
 GROUP BY s.first_name, s.last_name;
+
+
