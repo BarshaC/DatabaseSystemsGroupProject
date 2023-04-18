@@ -11,6 +11,7 @@ CREATE TABLE Course (
   year_ INT NOT NULL
 );
 
+
 CREATE TABLE Student (
   id INT PRIMARY KEY AUTO_INCREMENT,
   first_name VARCHAR(255) NOT NULL,
@@ -43,6 +44,7 @@ CREATE TABLE Grade (
 INSERT INTO Course (id, department, course_number, course_name, semester, year_)
 VALUES (1, 'Computer Science', 101, 'Intro to Computer Science', 'Fall', 2022);
 
+
 -- Insert values into Student table
 INSERT INTO Student (id, first_name, last_name, course_id)
 VALUES (1, 'John', 'Doe', 1),
@@ -55,6 +57,7 @@ VALUES (1, 'Participation', 10.0, 1),
        (2, 'Homework', 20.0, 1),
        (3, 'Tests', 50.0, 1),
        (4, 'Projects', 20.0, 1);
+       
 
 -- Insert values into Grades table
 INSERT INTO Grade (id, assignment_id, student_id, score)
@@ -97,7 +100,6 @@ SELECT s.* FROM Student s
 JOIN Course c ON s.course_id = c.id
 WHERE c.id = 1;
 
-
 -- List all of the students in a course and all of their scores on every assignment;
 SELECT s.first_name, s.last_name, a.category, g.score
 FROM Student s
@@ -128,7 +130,6 @@ SELECT * FROM Assignment WHERE course_id = 1;
 -- Scores before the update of 2 points
 SELECT * FROM Grade WHERE assignment_id = 3;
 
-
 -- Add 2 points to the score of each student on an assignment;
 UPDATE Grade
 SET score = score + 2
@@ -136,6 +137,7 @@ WHERE assignment_id = 3;
 
 -- Scores before the update
 SELECT * FROM Grade WHERE assignment_id = 3;
+
 
 -- Add 2 points to the score of students whose last name contains a 'Q'
 UPDATE Grade g
