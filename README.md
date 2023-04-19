@@ -7,6 +7,18 @@ Copy contents of code.sql into any editor or save code.sql file to your computer
 
 Run entire code to see all tasks executed 
 
+You can follow these steps for ease: 
+
+1.Install a database management system (DBMS) such as MySQL or PostgreSQL on your computer.
+
+2.Open the DBMS client and connect to the database you just created.
+
+3.Copy the contents of code.sql into the query editor in the DBMS client, or open the file "code.sql" in the DBMS client.
+
+4.Run the entire code to create the necessary tables and insert the values.
+
+5.Once the code has been executed, you can query the database to retrieve data or perform tasks as required.
+
 
 #  Create a Grade Book Database
 
