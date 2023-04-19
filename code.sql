@@ -1,8 +1,6 @@
-
-
 CREATE DATABASE GradeBook;
 USE GradeBook;
-
+-- TASK 2
 -- Create Course table
 CREATE TABLE Course (
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -12,6 +10,7 @@ CREATE TABLE Course (
   semester VARCHAR(255) NOT NULL,
   year_ INT NOT NULL
 );
+
 
 CREATE TABLE Student (
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -30,6 +29,7 @@ CREATE TABLE Assignment (
   FOREIGN KEY (course_id) REFERENCES Course(id)
 );
 
+-- Create Grade table
 CREATE TABLE Grade (
   id INT PRIMARY KEY AUTO_INCREMENT,
   assignment_id INT NOT NULL,
@@ -39,10 +39,19 @@ CREATE TABLE Grade (
   FOREIGN KEY (student_id) REFERENCES Student(id)
 );
 
+
 -- Insert values into Course table
 INSERT INTO Course (id, department, course_number, course_name, semester, year_)
 VALUES (1, 'Computer Science', 101, 'Intro to Computer Science', 'Fall', 2022);
 
+INSERT INTO Course (department, course_number, course_name, semester, year_)
+VALUES ('Chemistry', 201, 'Organic Chemistry I', 'Fall', 2023);
+
+INSERT INTO Course (department, course_number, course_name, semester, year_)
+VALUES ('English', 109, 'Introduction to Literature', 'Spring', 2023);
+
+INSERT INTO Course (department, course_number, course_name, semester, year_)
+VALUES ('Arts', 301, 'American History', 'Fall', 2022);
 
 -- Insert values into Student table
 INSERT INTO Student (id, first_name, last_name, course_id)
@@ -58,7 +67,7 @@ VALUES (1, 'Participation', 10.0, 1),
        (4, 'Projects', 20.0, 1);
        
 
--- Insert values into Grade table
+-- Insert values into Grades table
 INSERT INTO Grade (id, assignment_id, student_id, score)
 VALUES
 (1, 1, 1, 8.5),
@@ -74,11 +83,13 @@ VALUES
 (11, 3, 3, 90.0),
 (12, 4, 3, 91.5);
 
+-- TASK 3
 SELECT * FROM Course;
 SELECT * FROM Student;
 SELECT * FROM Assignment;
 SELECT * FROM Grade;
 
+-- TASK 4
 -- Average score
 SELECT AVG(score) AS average_score
 FROM Grade
@@ -94,11 +105,13 @@ SELECT MIN(score) AS lowest_score
 FROM Grade
 WHERE assignment_id = 2;
 
+-- TASK 5
 -- List all of the students in a given course
 SELECT s.* FROM Student s
 JOIN Course c ON s.course_id = c.id
 WHERE c.id = 1;
 
+-- TASK 6
 -- List all of the students in a course and all of their scores on every assignment;
 SELECT s.first_name, s.last_name, a.category, g.score
 FROM Student s
@@ -106,13 +119,15 @@ JOIN Grade g ON s.id = g.student_id
 JOIN Assignment a ON g.assignment_id = a.id
 WHERE s.course_id = 1;
 
+-- TASK 7
 -- Add an assignment to a course
-INSERT INTO Assignment (category, percentage, course_id)
-VALUES ('Final Exam', 30, 1);
+INSERT INTO Assignment (id,category, percentage, course_id)
+VALUES (5,'Final Exam', 30.0, 1);
 
 -- Show the changes in the assignment
 SELECT * FROM Assignment;
 
+-- TASK 8
 -- Change the percentages of the categories for a course;
 UPDATE Assignment
 SET percentage = 5 WHERE id = 1 AND course_id = 1;
@@ -129,6 +144,7 @@ SELECT * FROM Assignment WHERE course_id = 1;
 -- Scores before the update of 2 points
 SELECT * FROM Grade WHERE assignment_id = 3;
 
+-- TASK 9
 -- Add 2 points to the score of each student on an assignment;
 UPDATE Grade
 SET score = score + 2
@@ -137,27 +153,70 @@ WHERE assignment_id = 3;
 -- Scores before the update
 SELECT * FROM Grade WHERE assignment_id = 3;
 
-
+-- TASK 10
 -- Add 2 points to the score of students whose last name contains a 'Q'
 UPDATE Grade g
 JOIN Student s ON s.id = g.student_id
-SET score = score + 2
+SET score = score - 2
 WHERE s.last_name LIKE '%Q%';
 
+-- TASK 11
 -- Compute the grade for a student
 SELECT s.first_name, s.last_name, SUM(a.percentage * g.score / 100) AS grade
 FROM Student s
 JOIN Grade g ON s.id = g.student_id
 JOIN Assignment a ON g.assignment_id = a.id
 WHERE s.id = 1
-GROUP BY s.first_name, s.last_name;
+GROUP BY s.id;
 
+-- TASK 12
 -- Compute the grade for a student, where the lowest score for a given category is dropped.
 SELECT s.first_name, s.last_name, 
   (SUM(g.score) - MIN(g.score)) / (COUNT(g.score) - 1) AS grade
 FROM Student s
 JOIN Grade g ON s.id = g.student_id
-WHERE s.id = 2
+WHERE s.id = 1
 GROUP BY s.first_name, s.last_name;
 
 
+-- Testing
+DELETE FROM Course WHERE course_id = 101;
+DELETE FROM Course WHERE id = 2;
+
+
+-- Test case: Verify that the scores of students with last name containing 'Q' are updated by 2 points
+
+-- Insert a student with last name containing 'Q'
+INSERT INTO Student (id, first_name, last_name, course_id)
+VALUES (4, 'John', 'Qoe', 1);
+
+SELECT * FROM Student;
+
+-- Testing Add 2 points to the score of students whose last name contains a 'Q'
+UPDATE Grade g
+JOIN Student s ON s.id = g.student_id
+SET score = score + 2
+WHERE s.last_name LIKE '%Q%';
+
+-- See the score after updating it
+SELECT s.first_name, s.last_name, a.category, g.score
+FROM Student s
+JOIN Grade g ON s.id = g.student_id
+JOIN Assignment a ON g.assignment_id = a.id
+WHERE s.course_id = 1;
+
+-- Test Case for last name containing Q task 
+INSERT INTO Student VALUES (4, 'John', 'Qoe', 1);
+INSERT INTO Grade (id, assignment_id, student_id, score)
+VALUES
+(13,1,4,78.8),
+(14,2,4,93.2),
+(15,3,4,98.4),
+(16,4,4,86.6);
+
+-- List all of the students in a course and all of their scores on every assignment to check the new student and their scores added;
+SELECT s.first_name, s.last_name, a.category, g.score
+FROM Student s
+JOIN Grade g ON s.id = g.student_id
+JOIN Assignment a ON g.assignment_id = a.id
+WHERE s.course_id = 1;
